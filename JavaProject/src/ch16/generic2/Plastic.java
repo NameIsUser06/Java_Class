@@ -8,6 +8,6 @@ public class Plastic implements Material {
 
     @Override
     public void doPrinting() {
-
+        System.out.println("프린터를 출력합니다.");
     }
 }
