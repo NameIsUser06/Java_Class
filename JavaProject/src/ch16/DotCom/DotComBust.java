@@ -41,9 +41,11 @@ public class DotComBust {
         for (Dotcom dotCom : dotComs) {
             result = dotCom.checkYourself(userGuess);
             if (result.equals("hit")) {
+                System.out.println(result);
                 break;
             }
             if (result.equals("kill")) {
+                System.out.println(result);
                 dotComs.remove(dotCom);
                 break;
             }
