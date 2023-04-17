@@ -5,18 +5,37 @@ import com.cho.bssm.hellospring.repository.IStudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentService {
-    @Autowired
     private final IStudentRepository repository;
 
+    @Autowired
     public StudentService(IStudentRepository repository) {
         this.repository = repository;
     }
 
-    public Long edit(Student student) {
-        Long input = repository.save(student);
-        System.out.println(input);
-        return input;
+    public void edit(Student student) {
+        validateDuplicateStudent(student);
+        repository.save(student);
+    }
+
+    public void validateDuplicateStudent(Student student) {
+        if (repository.findById(student.getId()) != null) {
+            throw new IllegalStateException("이미 등록된 학번입니다!");
+        }
+    }
+
+    public List<Student> findStudents() {
+        return repository.findAll();
+    }
+
+    public void updateScore(Student student) {
+        repository.findById(student.getId()).setScore(student.getScore());
+    }
+
+    public Student findOne(Long id) {
+        return repository.findById(id);
     }
 }
