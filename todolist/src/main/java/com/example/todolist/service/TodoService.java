@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class TodoService {
@@ -43,5 +41,14 @@ public class TodoService {
     public Long update(Long id, TodoRequestDto requestDto) {
         TodoEntity entity = todoRepository.findById(id).orElse(new TodoEntity());
         return entity.updateData(requestDto);
+    }
+
+    public void deleteAll() {
+        todoRepository.deleteAll();
+    }
+
+    public Long deleteById(Long id) {
+        todoRepository.deleteById(id);
+        return id;
     }
 }

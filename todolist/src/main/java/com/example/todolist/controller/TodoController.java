@@ -4,7 +4,6 @@ import com.example.todolist.controller.dto.TodoRequestDto;
 import com.example.todolist.controller.dto.TodoResponseDto;
 import com.example.todolist.service.TodoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,5 +32,15 @@ public class TodoController {
     public Long update(@PathVariable Long id,
                        @RequestBody TodoRequestDto requestDto) {
         return todoService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/todo/api")
+    public void deleteAll() {
+        todoService.deleteAll();
+    }
+
+    @DeleteMapping("/todo/api/{id}")
+    public Long deleteOne(@PathVariable Long id) {
+        return todoService.deleteById(id);
     }
 }

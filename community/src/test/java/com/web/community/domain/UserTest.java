@@ -1,5 +1,6 @@
 package com.web.community.domain;
 
+import com.web.community.repository.BoardRepository;
 import com.web.community.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,9 @@ class UserTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    BoardRepository boardRepository;
+
     @BeforeEach
     public void setUp() {
         User user = userRepository.save(User.builder()
@@ -26,6 +30,15 @@ class UserTest {
                 .created_date(LocalDateTime.now())
                 .updated_date(LocalDateTime.now())
                 .build());
+
+        Board board = boardRepository.save(Board.builder()
+                .title(boardTestTitle)
+                .subtitle("서브타이틀")
+                .boardType(BoardType.FREE)
+                .createdDate(LocalDateTime.now())
+                .updatedDate(LocalDateTime.now())
+                .user(user).build());
+
     }
 
     @Test
@@ -33,6 +46,11 @@ class UserTest {
         User user = userRepository.findByEmail(email);
         Assertions.assertEquals(user.getEmail(), email);
         Assertions.assertEquals(user.getName(), "cho");
+
+        Board board = boardRepository.findByUser(user);
+        Assertions.assertEquals(board.getTitle(), boardTestTitle);
+        Assertions.assertEquals(board.getUser(), user);
+
     }
 
 
