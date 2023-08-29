@@ -1,4 +1,4 @@
-package part01_structure.ch01_CBT;
+package part01_structure.ch01_cbt;
 
 public interface CBTInterface {
     void push(Integer value);
